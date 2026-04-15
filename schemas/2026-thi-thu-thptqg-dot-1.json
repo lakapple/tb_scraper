@@ -6,8 +6,7 @@
   },
   "fields": [
     { "json_key": "sbd", "column_name": "SBD" },
-    { "json_key": "dob", "column_name": "Tên" },
-    { "json_key": "fullName", "column_name": "Ngày sinh" }
+    { "json_key": "dob", "column_name": "Tên" }
   ],
   "subjects": [
     "Văn",
