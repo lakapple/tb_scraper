@@ -53,7 +53,10 @@ class Scraper:
         co = ChromiumOptions()
         co.incognito()
         co.set_argument("--no-sandbox")
-        # co.headless() # Un-comment to hide the browser windows
+        co.set_argument("--disable-blink-features=AutomationControlled")
+        co.set_argument("--disable-extensions")
+        co.set_argument("--disable-images")
+        co.headless() # Un-comment to hide the browser windows
 
         port = 9222 + worker_id + 1
         profile_path = os.path.abspath(f"./tmp_profiles/worker_{worker_id}")
