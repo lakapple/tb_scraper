@@ -56,7 +56,6 @@ class Scraper:
         co.set_argument("--disable-blink-features=AutomationControlled")
         co.set_argument("--disable-extensions")
         co.set_argument("--disable-images")
-        co.headless() # Un-comment to hide the browser windows
 
         port = 9222 + worker_id + 1
         profile_path = os.path.abspath(f"./tmp_profiles/worker_{worker_id}")
@@ -95,12 +94,9 @@ class Scraper:
 
     def process_sbd(self, page, grade, sbd):
         try:
-            khoi_btn = page.ele(
-                "xpath://html/body/div[2]/main/div/div/div[2]/div/form/div[1]/div[1]/button",
-                timeout=5,
+            khoi_btn = page.ele('xpath://button[@role="combobox"]') or page.ele(
+                "xpath://html/body/div[2]/main/div/div/div[2]/div/form/div[1]/div[1]/button"
             )
-            if not khoi_btn:
-                khoi_btn = page.ele('xpath://button[@role="combobox"]', timeout=3)
 
             if not khoi_btn:
                 return False
