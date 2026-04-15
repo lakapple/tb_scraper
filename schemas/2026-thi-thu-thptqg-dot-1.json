@@ -1,0 +1,24 @@
+{
+  "grades": {
+    "10": { "start": 48000001, "end": 48000010 },
+    "11": { "start": 48000001, "end": 48000010 },
+    "12": { "start": 48000001, "end": 48000010 }
+  },
+  "fields": [
+    { "json_key": "sbd", "column_name": "SBD" },
+    { "json_key": "dob", "column_name": "Tên" },
+    { "json_key": "fullName", "column_name": "Ngày sinh" }
+  ],
+  "subjects": [
+    "Văn",
+    "Toán",
+    "Anh",
+    "Vật lí",
+    "Hóa học",
+    "Lịch sử",
+    "Địa lí",
+    "Sinh học",
+    "GDKT&PL",
+    "Tin học"
+  ]
+}
