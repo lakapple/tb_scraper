@@ -1,0 +1,80 @@
+{
+  "grades": {
+    "10": {
+      "start": 48000001,
+      "end": 48000648,
+      "subjects": ["Văn", "Toán", "Anh", "Vật lí", "Hóa học", "Lịch sử"],
+      "fields": [
+        { "json_key": "sbd", "column_name": "SBD" },
+        { "json_key": "dob", "column_name": "Tên" }
+      ]
+    },
+    "11": {
+      "start": 48001001,
+      "end": 48001670,
+      "subjects": [
+        "Văn",
+        "Toán",
+        "Anh",
+        "Vật lí",
+        "Hóa học",
+        "Lịch sử",
+        "Địa lí",
+        "GDKT&PL"
+      ],
+      "fields": [
+        { "json_key": "sbd", "column_name": "SBD" },
+        { "json_key": "dob", "column_name": "Tên" }
+      ]
+    },
+    "12": {
+      "start": 48002001,
+      "end": 48002644,
+      "subjects": ["Văn", "Toán", "Anh"],
+      "fields": [
+        { "json_key": "sbd", "column_name": "SBD" },
+        { "json_key": "fullName", "column_name": "Tên" }
+      ]
+    }{
+      "grades": {
+        "10": {
+          "start": 48000001,
+          "end": 48000008,
+          "subjects": ["Văn", "Toán", "Anh", "Vật lí", "Hóa học", "Lịch sử"],
+          "fields": [
+            { "json_key": "sbd", "column_name": "SBD" },
+            { "json_key": "dob", "column_name": "Tên" }
+          ]
+        },
+        "11": {
+          "start": 48001001,
+          "end": 48001008,
+          "subjects": [
+            "Văn",
+            "Toán",
+            "Anh",
+            "Vật lí",
+            "Hóa học",
+            "Lịch sử",
+            "Địa lí",
+            "GDKT&PL"
+          ],
+          "fields": [
+            { "json_key": "sbd", "column_name": "SBD" },
+            { "json_key": "dob", "column_name": "Tên" }
+          ]
+        },
+        "12": {
+          "start": 48002001,
+          "end": 48002008,
+          "subjects": ["Văn", "Toán", "Anh"],
+          "fields": [
+            { "json_key": "sbd", "column_name": "SBD" },
+            { "json_key": "fullName", "column_name": "Tên" }
+          ]
+        }
+      }
+    }
+
+  }
+}

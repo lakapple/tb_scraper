@@ -1,3 +1,5 @@
+# main.py
+
 import argparse
 import json
 import os
@@ -97,7 +99,6 @@ class Scraper:
             khoi_btn = page.ele('xpath://button[@role="combobox"]') or page.ele(
                 "xpath://html/body/div[2]/main/div/div/div[2]/div/form/div[1]/div[1]/button"
             )
-
             if not khoi_btn:
                 return False
 
@@ -162,13 +163,21 @@ class Scraper:
         entry = {}
         entry["Grade"] = grade
 
-        for f in self.cfg["fields"]:
+        # Access the specific grade's configuration
+        grade_cfg = self.cfg.get("grades", {}).get(str(grade), {})
+
+        # ✅ Read fields specifically for this grade
+        grade_fields = grade_cfg.get("fields", [])
+        for f in grade_fields:
             entry[f["column_name"]] = data.get(f["json_key"], "")
+
+        # ✅ Read subjects specifically for this grade
+        grade_subjects = grade_cfg.get("subject", grade_cfg.get("subjects", []))
 
         scores = data.get("scores", [])
         for s in scores:
             subj_name = s.get("name")
-            if subj_name in self.cfg["subjects"]:
+            if subj_name in grade_subjects:
                 entry[subj_name] = s.get("total")
 
         with self.lock:
@@ -239,22 +248,32 @@ class Scraper:
 
         df = pd.DataFrame(self.results)
 
-        cols = (
-            ["Grade"]
-            + [f["column_name"] for f in self.cfg["fields"]]
-            + self.cfg["subjects"]
-        )
-
-        final_cols = [c for c in cols if c in df.columns]
-        df = df[final_cols]
-
         with pd.ExcelWriter(self.output_path, engine="openpyxl") as writer:
             unique_grades = sorted(df["Grade"].unique(), key=lambda x: int(x))
 
             for grade in unique_grades:
                 sheet_name = f"Khối {grade}"
                 grade_df = df[df["Grade"] == grade].copy()
-                grade_df.drop(columns=["Grade"], inplace=True, errors="ignore")
+
+                grade_cfg = self.cfg.get("grades", {}).get(str(grade), {})
+
+                # ✅ Get base columns (SBD, Tên, etc.) dynamically for THIS grade
+                grade_fields = grade_cfg.get("fields", [])
+                base_cols = [f["column_name"] for f in grade_fields]
+
+                # ✅ Get subject columns for this specific grade
+                grade_subjects = grade_cfg.get("subject", grade_cfg.get("subjects", []))
+
+                desired_cols = base_cols + grade_subjects
+
+                # Force the creation of missing columns
+                for col in desired_cols:
+                    if col not in grade_df.columns:
+                        grade_df[col] = ""
+
+                # Keep only the desired columns and order them correctly based on schema
+                grade_df = grade_df[desired_cols]
+
                 grade_df.to_excel(writer, sheet_name=sheet_name, index=False)
 
         print(f"\n[***] Data securely saved to {self.output_path}")
